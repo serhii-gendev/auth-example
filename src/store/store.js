@@ -1,21 +1,37 @@
-import React, { createContext, useReducer } from "react";
+  import React, { createContext, useReducer } from 'react';
 
-const initialState = { isAuthenticated: false };
-export const store = createContext(initialState);
+  const AuthContext = createContext();
 
-const StateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer((state, action) => {
-    switch (action.type) {
-      case "SET_AUTHENTICATION":
-        return { ...state, isAuthenticated: action.payload };
+  const initialState = {
+    isAuthenticated: false,
+    token: null
+  };
+
+  const reducer = (state, action) => {
+    switch(action.type) {
+      case 'LOGIN':
+        sessionStorage.setItem('token', action.payload.token);
+        return {
+          ...state,
+          isAuthenticated: true,
+          token: action.payload.token
+        };
+      case 'LOGOUT':
+        sessionStorage.removeItem('token');
+        return {...state, isAuthenticated: false, token: null};
       default:
-        throw new Error();
+        return state;
     }
-  }, initialState);
+  }
 
-  return (
-    <store.Provider value={{ state, dispatch }}>{children}</store.Provider>
-  );
-};
+  export const AuthProvider = ({children}) => {
+    const[state, dispatch] = useReducer(reducer, initialState);
 
-export default StateProvider;
+    return(
+      <AuthContext.Provider value={{state, dispatch}}>
+        {children}
+      </AuthContext.Provider> 
+    );
+  };
+
+  export default AuthContext;

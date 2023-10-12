@@ -1,36 +1,55 @@
-import React, { useState, useContext } from "react";
-import { store } from "./Store";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../store/store"; //import from the path where defined AuthContext
 
 const Login = () => {
-  const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { dispatch } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (username === "admin" && password === "admin") {
-      // just for testing
-      dispatch({ type: "SET_AUTHENTICATION", payload: true });
+  const handleLogin = (event) => {
+    event.preventDefault(); // prevent form from refreshing the page
+    if (username.trim() === "admin" && password.trim() === "password") {
+      dispatch({ type: "LOGIN", payload: { token: "12345" } });
+      navigate("/");
     } else {
-      alert("Invalid credentials");
+      alert("Invalid login");
     }
   };
 
+  const handleCancel = (event) => {
+    event.preventDefault(); // prevent form from refreshing the page
+    setUsername("");
+    setPassword("");
+  };
+
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
+    <div className="content">
+      <form className="login-form">
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div className="button-group">
+          <button className="button warning" onClick={handleCancel}>
+            {" "}
+            Cancel{" "}
+          </button>
+          <button className="button success" onClick={handleLogin}>
+            {" "}
+            Login{" "}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

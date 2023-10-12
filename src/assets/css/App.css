@@ -1,38 +1,139 @@
-.App {
-  text-align: center;
+body {
+  font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button {
+  border-radius: 5px;
+  margin: 5px;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  transition: 0.2s all;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button:hover {
+  opacity: 0.8;
+}
+.navbar {
+  background-color: #333;
+  padding: 0 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar nav ul {
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: flex-end;
+  list-style: none;
+  background-color: #333;
+}
+
+.navbar nav ul li {
+  display: inline;
+}
+
+.navbar nav ul li a,
+.navbar nav ul li button {
+  display: inline-block;
+  padding: 10px;
+  margin-right: 1rem;
+  text-decoration: none;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.navbar nav ul li a:hover,
+.navbar nav ul li button:hover {
+  background-color: #4CAF50;
+  cursor: pointer;
+}
+.button-group {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 30px;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.button {
+  border: none;
+  width: 40%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  margin: 20px 0;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+.warning {
+  background-color: #a07210;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.success {
+  background-color: #094d18;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.danger {
+  background-color: #fd3b3b;
+  color: white;
+}
+
+.default {
+  background-color: #4c8bf5;
+  color: white;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  padding: 20px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+.login-form input {
+  width: 80%;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s all;
+}
+
+.login-form input:focus {
+  border: 1px solid #757575;
+}
+
+.login-form input:focus {
+  border-color: #04AA6D;
+}
+
+.notAuthenticated {
+  color: red;
+}
+
+.authenticated {
+  color: green;
 }

@@ -1,12 +1,23 @@
 import React from "react";
-import StateProvider from "./store/store";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import NavigationBar from "./components/navbar";
 import Login from "./components/auth";
-import "./assets/css/App.css"
+import Home from "./components/home";
+import { AuthProvider } from "./store/store";
+import "./assets/css/App.css";
+
 function App() {
   return (
-    <StateProvider>
-      <Login />
-    </StateProvider>
+    <AuthProvider>
+      <Router>
+        <NavigationBar />
+        <Routes>
+          
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
