@@ -1,52 +1,63 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../store/store"; //import from the path where defined AuthContext
+import AuthContext from "../store/store";
 
-const Login = () => {
+const LoginForm = () => {
   const { dispatch } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginFailed, setLoginFailed] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
-    event.preventDefault(); // prevent form from refreshing the page
+    event.preventDefault();
     if (username.trim() === "admin" && password.trim() === "password") {
       dispatch({ type: "LOGIN", payload: { token: "12345" } });
+      setLoginFailed(false);
       navigate("/");
     } else {
-      alert("Invalid login");
+      setLoginFailed(true);
     }
   };
 
   const handleCancel = (event) => {
-    event.preventDefault(); // prevent form from refreshing the page
+    event.preventDefault();
     setUsername("");
     setPassword("");
+    setLoginFailed(false);
   };
 
   return (
     <div className="content">
-      <form className="login-form">
+      <form onSubmit={handleLogin} className="login-form">
         <input
+          className={`login-form__input ${
+            loginFailed ? "error" : ""
+          }`}
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
+          className={`login-form__input  ${
+            loginFailed ? "error" : ""
+          }`}
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className="button-group">
-          <button className="button warning" onClick={handleCancel}>
-            {" "}
-            Cancel{" "}
+          <button
+            type="reset"
+            className="button warning"
+            onClick={handleCancel}
+          >
+            Cancel
           </button>
-          <button className="button success" onClick={handleLogin}>
-            {" "}
-            Login{" "}
+          <button type="submit" className="button success">
+            Login
           </button>
         </div>
       </form>
@@ -54,4 +65,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;

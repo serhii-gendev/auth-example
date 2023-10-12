@@ -2,11 +2,10 @@
 
   const AuthContext = createContext();
 
-  const initialState = {
-    isAuthenticated: false,
-    token: null
-  };
-
+const initialState = {
+  isAuthenticated: sessionStorage.getItem("token") ? true : false,
+  token: sessionStorage.getItem("token"),
+};
   const reducer = (state, action) => {
     switch(action.type) {
       case 'LOGIN':
